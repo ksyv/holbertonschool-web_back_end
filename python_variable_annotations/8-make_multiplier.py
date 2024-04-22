@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Modul for task 7:
+Modul for task 8:
 Write a type-annotated function make_multiplier that takes
 a float multiplier as arguments
 and returns function that multiplies a float by multiplier.
