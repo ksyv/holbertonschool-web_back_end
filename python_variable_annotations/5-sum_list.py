@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Modul for task 5:
-Write a type-annotated function add which takes
+Write a type-annotated function sum_list which takes
 a list input_list of floats as arguments
 and returns their sum as a float.
 """
