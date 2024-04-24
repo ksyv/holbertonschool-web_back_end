@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
-
 """
-File: 100-safe_first_element.py
-Author: TheWatcher01
-Date: 2024-04-22
-Description: Module for safely getting first element of sequence with
-type annotations.
+Modul for task 10:
+Augment the following code
+with the correct duck-typed annotations:
+# The types of the elements of the input are not known
+def safe_first_element(lst):
+    if lst:
+        return lst[0]
+    else:
+        return None
 """
+from typing import Any, Sequence, Union
 
-from typing import Sequence, Any, Optional
 
-
-def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
+# The types of the elements of the input are not know
+def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
     """
-    Safely returns first element of sequence, or None if sequence is empty.
+        Args:
+            lst: Any data type
 
-    Args:
-    lst (Sequence[Any]): Sequence of elements from wich to get first element.
-
-    Returns:
-    Optional[Any]: First element of sequence, or None if sequence is empty.
+        Return:
+            None or first element
     """
-    return lst[0] if lst else None
+    if lst:
+        return lst[0]
+    else:
+        return None
