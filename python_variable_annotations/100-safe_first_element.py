@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+
 """
-Modul for task 10:
-Augment the following code
-with the correct duck-typed annotations:
+File: 100-safe_first_element.py
+Author: TheWatcher01
+Date: 2024-04-22
+Description: Module for safely getting first element of sequence with
+type annotations.
 """
+
 from typing import Sequence, Any, Optional
 
 
