@@ -4,19 +4,17 @@ Modul for task 10:
 Augment the following code
 with the correct duck-typed annotations:
 """
-from typing import Any, Sequence, Optional
+from typing import Sequence, Any, Optional
 
 
-# The types of the elements of the input are not know
 def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
     """
-        Args:
-            lst: Any data type
+    Safely returns first element of sequence, or None if sequence is empty.
 
-        Return:
-            None or first element
+    Args:
+    lst (Sequence[Any]): Sequence of elements from wich to get first element.
+
+    Returns:
+    Optional[Any]: First element of sequence, or None if sequence is empty.
     """
-    if lst:
-        return lst[0]
-    else:
-        return None
+    return lst[0] if lst else None
