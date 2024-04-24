@@ -10,11 +10,11 @@ def safe_first_element(lst):
     else:
         return None
 """
-from typing import Any, Sequence, Union
+from typing import Any, Sequence, Optional
 
 
 # The types of the elements of the input are not know
-def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
+def safe_first_element(lst: Sequence[Any]) -> Optional[Any]:
     """
         Args:
             lst: Any data type
