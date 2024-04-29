@@ -19,7 +19,7 @@ from pymongo import MongoClient
 
 def log_stats():
     """returns the list of school having a specific topic"""
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("mongodb://localhost:27017/")
     logs = client.logs.nginx.count_documents({})
     print(f"{logs} logs")
     print ("Methods:")
