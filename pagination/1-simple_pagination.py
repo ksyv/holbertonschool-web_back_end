@@ -2,11 +2,16 @@
 """
 Module for task 1:
 After copying the first task and a given class code,
-Implement a method named get_page that takes two integer arguments page with default value 1 and page_size with default value 10.
-You have to use this CSV file (same as the one presented at the top of the project)
+Implement a method named get_page that takes two integer
+arguments page with default value 1 and page_size with default value 10.
+You have to use this CSV file (same as the one presented
+at the top of the project)
 Use assert to verify that both arguments are integers greater than 0.
-Use index_range to find the correct indexes to paginate the dataset correctly and return the appropriate page of the dataset (i.e. the correct list of rows).
-If the input arguments are out of range for the dataset, an empty list should be returned.
+Use index_range to find the correct indexes to paginate the dataset
+correctly and return the appropriate page of the dataset
+(i.e. the correct list of rows).
+If the input arguments are out of range for the dataset,
+an empty list should be returned.
 """
 import csv
 import math
@@ -40,8 +45,8 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        assert type(page) == int and page > 0
-        assert type(page_size) == int and page_size > 0
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
         dataset = self.dataset()
         start_index, end_index = index_range(page, page_size)
         if start_index > len(dataset):
