@@ -52,7 +52,7 @@ Create a class BasicCache that inherits from BaseCaching and is a caching system
   - Must return the value in self.cache_data linked to key.
   - If key is None or if the key doesn’t exist in self.cache_data, return None.
 
-'''
+```
 guillaume@ubuntu:~/$ cat 0-main.py
 #!/usr/bin/python3
 """ 0-main """
@@ -97,7 +97,7 @@ D: School
 E: Battery
 Street
 guillaume@ubuntu:~/$ 
-'''
+```
 
 ### 1. FIFO caching <a name="subparagraph2"></a>
 
@@ -115,7 +115,7 @@ Create a class FIFOCache that inherits from BaseCaching and is a caching system:
   - Must return the value in self.cache_data linked to key.
   - If key is None or if the key doesn’t exist in self.cache_data, return None.
 
-'''
+```
 guillaume@ubuntu:~/$ cat 1-main.py
 #!/usr/bin/python3
 """ 1-main """
@@ -158,7 +158,7 @@ D: School
 E: Battery
 F: Mission
 guillaume@ubuntu:~/$ 
-'''
+```
 
 ### 2. LIFO Caching <a name="subparagraph3"></a>
 
@@ -176,7 +176,7 @@ Create a class LIFOCache that inherits from BaseCaching and is a caching system:
   - Must return the value in self.cache_data linked to key.
   - If key is None or if the key doesn’t exist in self.cache_data, return None.
 
-'''
+```
 guillaume@ubuntu:~/$ cat 2-main.py
 #!/usr/bin/python3
 """ 2-main """
@@ -227,7 +227,7 @@ B: World
 E: Battery
 G: San Francisco
 guillaume@ubuntu:~/$ 
-'''
+```
 
 ### 3. LRU Caching <a name="subparagraph4"></a>
 
@@ -245,7 +245,7 @@ Create a class LRUCache that inherits from BaseCaching and is a caching system:
   - Must return the value in self.cache_data linked to key.
   - If key is None or if the key doesn’t exist in self.cache_data, return None.
 
-'''
+```
 guillaume@ubuntu:~/$ cat 3-main.py
 #!/usr/bin/python3
 """ 3-main """
@@ -336,7 +336,7 @@ I: I
 J: J
 K: K
 guillaume@ubuntu:~/$ 
-'''
+```
 
 ### 4. MRU Caching <a name="subparagraph5"></a>
 
@@ -354,7 +354,7 @@ Create a class MRUCache that inherits from BaseCaching and is a caching system:
   - Must return the value in self.cache_data linked to key.
   - If key is None or if the key doesn’t exist in self.cache_data, return None.
 
-'''
+```
 guillaume@ubuntu:~/$ cat 4-main.py
 #!/usr/bin/python3
 """ 4-main """
@@ -445,4 +445,4 @@ D: School
 E: Battery
 K: K
 guillaume@ubuntu:~/$ 
-'''
+```
