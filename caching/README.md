@@ -17,26 +17,73 @@
 
 ## Resources
 ### Read or watch:
-* https://releases.jquery.com/
-* https://api.jquery.com/
-* https://github.com/typicode/json-server/tree/v0
+* https://en.wikipedia.org/wiki/Cache_replacement_policies
 
 ## Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
-* Learn how to load jQuery from a CDN in a page
-* Learn the different ways to create DOM elements with jQuery
-* Learn how to modify elements
-* Learn how to add new elements to a page with different positions
-* Learn how to add a click handler on an element
-* Learn how to send GET, POST, DELETE or any type of AJAX query with jQuery
-* Learn how to create a pagination
+* What a caching system is
+* What FIFO means
+* What LIFO means
+* What LRU means
+* What MRU means
+* What LFU means
+* What the purpose of a caching system
+* What limits a caching system have
 
 
 ## Requirements
-### General
-* Allowed editors: vi, vim, emacs, Visual Studio Code
+### Python Scripts
+* All your files will be interpreted/compiled on Ubuntu 20.04 LTS using python3 (version 3.9)
 * All your files should end with a new line
-* A README.md file, at the root of the folder of the project, is mandator
+* The first line of all your files should be exactly #!/usr/bin/env python3
+* A README.md file, at the root of the folder of the project, is mandatory
+* Your code should use the pycodestyle style (version 2.5)
+* All your files must be executable
+* The length of your files will be tested using wc
+* All your modules should have a documentation (python3 -c 'print(__import__("my_module").__doc__)')
+* All your classes should have a documentation (python3 -c 'print(__import__("my_module").MyClass.__doc__)')
+* All your functions (inside and outside a class) should have a documentation (python3 -c 'print(__import__("my_module").my_function.__doc__)' and python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)')
+* A documentation is not a simple word, it’s a real sentence explaining what’s the purpose of the module, class or method (the length of it will be verified)
+
+## More Info
+### Parent class BaseCaching
+All your classes must inherit from BaseCaching defined below:
+
+```
+$ cat base_caching.py
+#!/usr/bin/python3
+""" BaseCaching module
+"""
+
+class BaseCaching():
+    """ BaseCaching defines:
+      - constants of your caching system
+      - where your data are stored (in a dictionary)
+    """
+    MAX_ITEMS = 4
+
+    def __init__(self):
+        """ Initiliaze
+        """
+        self.cache_data = {}
+
+    def print_cache(self):
+        """ Print the cache
+        """
+        print("Current cache:")
+        for key in sorted(self.cache_data.keys()):
+            print("{}: {}".format(key, self.cache_data.get(key)))
+
+    def put(self, key, item):
+        """ Add an item in the cache
+        """
+        raise NotImplementedError("put must be implemented in your cache class")
+
+    def get(self, key):
+        """ Get an item by key
+        """
+        raise NotImplementedError("get must be implemented in your cache class")
+```
 
 ## Task
 ### 0. Basic dictionary <a name="subparagraph1"></a>
