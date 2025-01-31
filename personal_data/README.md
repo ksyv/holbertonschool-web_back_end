@@ -1,7 +1,3 @@
-Vous avez raison !  J'ai accidentellement supprimé les balises de code markdown à partir de la tâche 2.  Voici la version corrigée, entièrement en markdown, prête pour le copier-coller:
-
-Markdown
-
  <div align="center"><img src="https://github.com/ksyv/holbertonschool-web_front_end/blob/main/baniere_holberton.png"></div> 
 
  # Personal Data 
@@ -12,13 +8,13 @@ Markdown
  - [Learning Objectives](#Learning-Objectives) 
  - [Requirements](#Requirements) 
  - [Tasks](#Tasks) 
-     - [0. Regex-ing](#subparagraph1) 
-     - [1. Log formatter](#subparagraph2) 
-     - [2. Create logger](#subparagraph3) 
-     - [3. Connect to secure database](#subparagraph4) 
-     - [4. Read and filter data](#subparagraph5) 
-     - [5. Encrypting passwords](#subparagraph6) 
-     - [6. Check valid password](#subparagraph7)
+    - [0. Regex-ing](#subparagraph1) 
+    - [1. Log formatter](#subparagraph2) 
+    - [2. Create logger](#subparagraph3) 
+    - [3. Connect to secure database](#subparagraph4) 
+    - [4. Read and filter data](#subparagraph5) 
+    - [5. Encrypting passwords](#subparagraph6) 
+    - [6. Check valid password](#subparagraph7)
  - [Authors](#Authors) 
 
  ## Resources 
@@ -66,9 +62,9 @@ Markdown
 
  ### 1. Log formatter <a name="subparagraph2"></a> 
 
- Update the class `RedactingFormatter` to accept a list of strings `fields` in the constructor argument. 
- Implement the `format` method to filter values in incoming log records using `filter_datum`. Values for fields in `fields` should be filtered.
- DO NOT extrapolate `FORMAT` manually. The `format` method should be less than 5 lines long. 
+ Update the class `RedactingFormatter` to accept a list of strings `fields` in the constructor argument. <br>
+ Implement the `format` method to filter values in incoming log records using `filter_datum`. Values for fields in `fields` should be filtered.<br>
+ DO NOT extrapolate `FORMAT` manually. The `format` method should be less than 5 lines long. <br>
 
  ```python
  class RedactingFormatter(logging.Formatter): 
@@ -88,10 +84,10 @@ Markdown
 ```
 
 ### 2. Create logger <a name="subparagraph3"></a>
-Implement a get_logger function that takes no arguments and returns a logging.Logger object.
+Implement a get_logger function that takes no arguments and returns a logging.Logger object.<br>
 
-The logger should be named "user_data" and only log up to logging.INFO level. It should not propagate messages to other loggers. It should have a StreamHandler with RedactingFormatter as formatter.
-Create a tuple PII_FIELDS constant at the root of the module containing the 5 fields from user_data.csv that are considered PII : name, email, phone, ssn, password. Use it to parameterize the formatter.
+The logger should be named "user_data" and only log up to logging.INFO level. It should not propagate messages to other loggers. It should have a StreamHandler with RedactingFormatter as formatter.<br>
+Create a tuple PII_FIELDS constant at the root of the module containing the 5 fields from user_data.csv that are considered PII : name, email, phone, ssn, password. Use it to parameterize the formatter.<br>
 
 
 ### 3. Connect to secure database <a name="subparagraph4"></a>
