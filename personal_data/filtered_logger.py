@@ -3,9 +3,11 @@
 Log filter module
 """
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str):
     """
     Obfuscates specified fields in a log message.
 
@@ -18,4 +20,5 @@ def filter_datum(fields, redaction, message, separator):
     Returns:
         The obfuscated log message.
     """
-    return re.sub(r"("+separator+")("+ "|".join(fields) + r")=([^"+separator+"]*)", r"\1\2="+redaction, message)
+    return re.sub(r"("+separator+")(" + "|".join(fields)
+                  + r")=([^"+separator+"]*)", r"\1\2="+redaction, message)
