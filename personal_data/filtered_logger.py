@@ -77,7 +77,7 @@ def get_logger() -> logging.Logger:
 
     return logger  # Return the configured logger
 
-def get_db():
+def get_db() -> str:
     """Retrieves a database connection."""
     # Step 2: Retrieve database credentials from environment variables.
     username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
