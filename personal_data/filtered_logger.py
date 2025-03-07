@@ -35,17 +35,6 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         return None
 
 
-# Example of how to use the function.
-if __name__ == "__main__":
-    db_connection = get_db()
-    if db_connection:
-        print("Database connection successful!")
-        # Perform database operations here...
-        db_connection.close()  # close connection when finished.
-    else:
-        print("Database connection failed.")
-
-
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")  # Define PII fields
 
 
@@ -114,3 +103,26 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger  # Return the configured logger
+
+
+def main() -> None:
+    """
+    Obtains a database connection, retrieves all rows in the users table,
+    and displays each row under a filtered format.
+    """
+    logger = get_logger()
+    connection = get_db()
+    if connection:
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM users;")
+        rows = cursor.fetchall()
+        for row in rows:
+            message = "; ".join(f"{field}={value}" for field,
+                                value in zip(cursor.column_names, row))
+            logger.info(message)
+        cursor.close()
+        connection.close()
+
+
+if __name__ == "__main__":
+    main()
