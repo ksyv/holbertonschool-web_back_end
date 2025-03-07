@@ -34,13 +34,14 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         print(f"Error connecting to database: {err}")
         return None
 
-#Example of how to use the function.
+
+# Example of how to use the function.
 if __name__ == "__main__":
     db_connection = get_db()
     if db_connection:
         print("Database connection successful!")
         # Perform database operations here...
-        db_connection.close() #close connection when finished.
+        db_connection.close()  # close connection when finished.
     else:
         print("Database connection failed.")
 
