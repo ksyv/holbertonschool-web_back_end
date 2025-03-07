@@ -9,7 +9,7 @@ import os
 import mysql.connector
 
 
-def get_db() -> str:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """Retrieves a database connection."""
     # Step 2: Retrieve database credentials from environment variables.
     username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
