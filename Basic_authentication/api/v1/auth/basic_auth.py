@@ -20,7 +20,7 @@ class BasicAuth(Auth):
         if 'Basic' not in authorization_header:
             return (None)
         return authorization_header[6:]
-    
+
     def decode_base64_authorization_header(self, b64_auth_header: str) -> str:
         """ Returns the Base64 part of the Authorization header
         """
