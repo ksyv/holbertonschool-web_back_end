@@ -19,6 +19,7 @@ if os.getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.errorhandler(401)
 def unauthorised(error) -> str:
     """unauthorised handler
