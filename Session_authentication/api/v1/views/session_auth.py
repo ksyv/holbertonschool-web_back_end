@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from models.user import User
 import os
 
+
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
     """Handles login for session authentication."""
