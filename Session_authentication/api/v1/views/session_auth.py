@@ -33,3 +33,12 @@ def login():
     response.set_cookie(session_name, session_id)
 
     return response
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """Handles logout for session authentication."""
+    from api.v1.app import auth  # Import here to avoid circular import
+    if not auth.destroy_session(request):
+        abort(404)
+
+    return jsonify({}), 200
