@@ -4,6 +4,7 @@
 from flask import request
 from typing import List, TypeVar
 from models.user import User
+import re
 
 
 class Auth:
@@ -22,7 +23,7 @@ class Auth:
 
         for excluded_path in excluded_paths:
             if excluded_path.endswith('*'):
-                base_path = excluded_path[:-1]  
+                base_path = excluded_path[:-1]  # Remove the '*'
                 regex = re.compile(f"^{re.escape(base_path)}")
                 if regex.match(path) and path.startswith(base_path):
                     return False
