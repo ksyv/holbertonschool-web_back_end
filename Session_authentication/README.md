@@ -56,14 +56,13 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
   - [6. Use Session ID for identifying a User](#subparagraph6)
   - [7. New view for Session Authentication](#subparagraph7)
   - [8. Logout](#subparagraph8)
-  - [9. Tasks list](#subparagraph9)
 
 ## Resources
 ### Read or watch:
-* [REST API Authentication Mechanisms - Only the session auth part](/rltoken/vyJGpJSSrFRe0LuWasDqCQ)
-* [HTTP Cookie](/rltoken/Ry_Fo8MjzSa1KZ2nIijqOA)
-* [Flask](/rltoken/02kzIo8IrujZmw79-nG6qw)
-* [Flask Cookie](/rltoken/IoM4N_HLGdV1XBrFleMYGA)
+* [REST API Authentication Mechanisms - Only the session auth part](https://www.youtube.com/watch?v=501dpx2IjGY)
+* [HTTP Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
+* [Flask](https://palletsprojects.com/projects/flask/)
+* [Flask Cookie](https://flask.palletsprojects.com/en/stable/quickstart/)
 
 ## Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
@@ -204,15 +203,15 @@ Otherwise, keep the previous mechanism.
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -233,7 +232,7 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Test"
   "error": "Forbidden"
 }
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -257,7 +256,7 @@ Update <code>SessionAuth</code> class:
 
 Now you an “in-memory” Session ID storing. You will be able to retrieve an <code>User</code> id based on a Session ID.
 
-`
+```
 bob@dylan:~$ cat  main_1.py 
 #!/usr/bin/env python3
 """ Main 1
@@ -297,7 +296,7 @@ abcde => 61997a1b-3f8a-4b0f-87f6-19d5cafee63f: {'61997a1b-3f8a-4b0f-87f6-19d5caf
 fghij => 69e45c25-ec89-4563-86ab-bc192dcc3b4f: {'61997a1b-3f8a-4b0f-87f6-19d5cafee63f': 'abcde', '69e45c25-ec89-4563-86ab-bc192dcc3b4f': 'fghij'}
 abcde => 02079cb4-6847-48aa-924e-0514d82a43f4: {'61997a1b-3f8a-4b0f-87f6-19d5cafee63f': 'abcde', '02079cb4-6847-48aa-924e-0514d82a43f4': 'abcde', '69e45c25-ec89-4563-86ab-bc192dcc3b4f': 'fghij'}
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -314,7 +313,7 @@ Create an instance method <code>def user_id_for_session_id(self, session_id: str
 
 Now you have 2 methods (<code>create_session</code> and <code>user_id_for_session_id</code>) for storing and retrieving a link between a <code>User</code> ID and a Session ID.
 
-`
+```
 bob@dylan:~$ cat main_2.py 
 #!/usr/bin/env python3
 """ Main 2
@@ -382,7 +381,7 @@ abcde => 5d2930ba-f6d6-4a23-83d2-4f0abc8b8eee: {'a159ee3f-214e-4e91-9546-ca3ce87
 5d2930ba-f6d6-4a23-83d2-4f0abc8b8eee => abcde
 8647f981-f503-4638-af23-7bb4a9e4b53f => abcde
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -397,7 +396,7 @@ Update <code>api/v1/auth/auth.py</code> by adding the method <code>def session_c
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ cat main_3.py
 #!/usr/bin/env python3
 """ Cookie server
@@ -421,11 +420,11 @@ if __name__ == "__main__":
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id ./main_3.py 
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000"
 Cookie value: None
 bob@dylan:~$
@@ -438,7 +437,7 @@ bob@dylan:~$
 bob@dylan:~$ curl "http://0.0.0.0:5000" --cookie "_my_session_id_fake"
 Cookie value: None
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -451,15 +450,15 @@ Update the <code>@app.before_request</code> method in <code>api/v1/app.py</code>
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -484,7 +483,7 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users/me" --cookie "_my_session_id
   "error": "Forbidden"
 }
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -501,7 +500,7 @@ Now, you will be able to get a User based on his session ID.
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ cat main_4.py
 #!/usr/bin/env python3
 """ Main 4
@@ -544,11 +543,11 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=
 User with ID: cf3ddee1-ff24-49e4-a40b-2540333fe992 has a Session ID: 9d1648aa-da79-4692-8236-5f9d7f9e9485
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/"
 No user found
 bob@dylan:~$
@@ -558,7 +557,7 @@ bob@dylan:~$
 bob@dylan:~$ curl "http://0.0.0.0:5000/" --cookie "_my_session_id=9d1648aa-da79-4692-8236-5f9d7f9e9485"
 User found: cf3ddee1-ff24-49e4-a40b-2540333fe992
 bob@dylan:~$
-`
+```
 
 ---
 
@@ -589,15 +588,15 @@ In the file <code>api/v1/views/__init__.py</code>, you must add this new view at
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/auth_session/login" -XGET
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <title>405 Method Not Allowed</title>
@@ -676,7 +675,7 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users/me" --cookie "_my_session_id
   "updated_at": "2017-10-16 04:23:04"
 }
 bob@dylan:~$
-`
+```
 
 Now you have an authentication based on a Session ID stored in cookie, perfect for a website (browsers love cookies).
 
@@ -703,15 +702,15 @@ Update the file <code>api/v1/views/session_auth.py</code>, by adding a new route
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/auth_session/login" -XPOST -d "[email protected]" -d "password=fake pwd" -vvv
 Note: Unnecessary use of -X or --request, POST is already inferred.
 *   Trying 0.0.0.0...
@@ -768,12 +767,13 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users/me" --cookie "_my_session_id
   "error": "Forbidden"
 }
 bob@dylan:~$
-`
+```
 
 Login, logout… what’s else?
 
 Now, after getting a Session ID, you can request all protected API routes by using this Session ID, no need anymore to send User email and password every time.
 
+---
 
 
 ## Authors
