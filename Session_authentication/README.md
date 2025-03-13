@@ -117,7 +117,7 @@ Now, you will add a new endpoint: <code>GET /users/me</code> to retrieve the aut
 
 In the first terminal:
 
-`
+```
 bob@dylan:~$ cat main_0.py
 #!/usr/bin/env python3
 """ Main 0
@@ -147,11 +147,11 @@ bob@dylan:~$
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
-`
+```
 
 In a second terminal:
 
-`
+```
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -184,7 +184,7 @@ bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/users/me" -H "Authorization: Basic
   "updated_at": "2017-09-25 01:55:17"
 }
 bob@dylan:~$
-`
+```
 
 ---
 
