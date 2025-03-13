@@ -56,6 +56,7 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
   - [6. Use Session ID for identifying a User](#subparagraph6)
   - [7. New view for Session Authentication](#subparagraph7)
   - [8. Logout](#subparagraph8)
+  - [9. Tasks list](#subparagraph9)
 
 ## Resources
 ### Read or watch:
@@ -99,7 +100,7 @@ In this version, you implemented a <strong>Basic authentication</strong> for giv
 * <code>PUT /api/v1/users/&lt;user_id&gt;</code>
 * <code>DELETE /api/v1/users/&lt;user_id&gt;</code>
 
-Now, you will add a new endpoint:  to retrieve the authenticated  object.
+Now, you will add a new endpoint: <code>GET /users/me</code> to retrieve the authenticated <code>User</code> object.
 
 * Copy folders <code>models</code> and <code>api</code> from the previous project <code>0x06. Basic authentication</code>
 * Please make sure all mandatory tasks of this previous project are done at 100% because this project (and the rest of this track) will be based on it.
@@ -116,7 +117,7 @@ Now, you will add a new endpoint:  to retrieve the authenticated  object.
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ cat main_0.py
 #!/usr/bin/env python3
 """ Main 0
@@ -150,7 +151,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -189,12 +190,12 @@ bob@dylan:~$
 
 ### 1. Empty session <a name='subparagraph1'></a>
 
-Create a class  that inherits from . For the moment this class will be empty. It’s the first step for creating a new authentication mechanism:
+Create a class <code>SessionAuth</code> that inherits from <code>Auth</code>. For the moment this class will be empty. It’s the first step for creating a new authentication mechanism:
 
 * validate if everything inherits correctly without any overloading
 * validate the “switch” by using environment variables
 
-Update  for using  instance for the variable  depending of the value of the environment variable , If  is equal to :
+Update <code>api/v1/app.py</code> for using <code>SessionAuth</code> instance for the variable <code>auth</code> depending of the value of the environment variable <code>AUTH_TYPE</code>, If <code>AUTH_TYPE</code> is equal to <code>session_auth</code>:
 
 * import <code>SessionAuth</code> from <code>api.v1.auth.session_auth</code>
 * create an instance of <code>SessionAuth</code> and assign it to the variable <code>auth</code>
@@ -203,7 +204,7 @@ Otherwise, keep the previous mechanism.
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
@@ -211,7 +212,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth python3 -m ap
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -238,7 +239,7 @@ bob@dylan:~$
 
 ### 2. Create a session <a name='subparagraph2'></a>
 
-Update  class:
+Update <code>SessionAuth</code> class:
 
 * Create a class attribute <code>user_id_by_session_id</code> initialized by an empty dictionary
 * Create an instance method <code>def create_session(self, user_id: str = None) -&gt; str:</code> that creates a Session ID for a <code>user_id</code>:
@@ -254,9 +255,9 @@ Update  class:
     * Return the Session ID
   * The same <code>user_id</code> can have multiple Session ID - indeed, the <code>user_id</code> is the value in the dictionary <code>user_id_by_session_id</code>
 
-Now you an “in-memory” Session ID storing. You will be able to retrieve an  id based on a Session ID.
+Now you an “in-memory” Session ID storing. You will be able to retrieve an <code>User</code> id based on a Session ID.
 
-`html
+`
 bob@dylan:~$ cat  main_1.py 
 #!/usr/bin/env python3
 """ Main 1
@@ -302,18 +303,18 @@ bob@dylan:~$
 
 ### 3. User ID for Session ID <a name='subparagraph3'></a>
 
-Update  class:
+Update <code>SessionAuth</code> class:
 
-Create an instance method  that returns a  ID based on a Session ID:
+Create an instance method <code>def user_id_for_session_id(self, session_id: str = None) -&gt; str:</code> that returns a <code>User</code> ID based on a Session ID:
 
 * Return <code>None</code> if <code>session_id</code> is <code>None</code>
 * Return <code>None</code> if <code>session_id</code> is not a string
 * Return the value (the User ID) for the key <code>session_id</code> in the dictionary <code>user_id_by_session_id</code>.
 * You must use <code>.get()</code> built-in for accessing in a dictionary a value based on key
 
-Now you have 2 methods ( and ) for storing and retrieving a link between a  ID and a Session ID.
+Now you have 2 methods (<code>create_session</code> and <code>user_id_for_session_id</code>) for storing and retrieving a link between a <code>User</code> ID and a Session ID.
 
-`html
+`
 bob@dylan:~$ cat main_2.py 
 #!/usr/bin/env python3
 """ Main 2
@@ -387,7 +388,7 @@ bob@dylan:~$
 
 ### 4. Session cookie <a name='subparagraph4'></a>
 
-Update  by adding the method  that returns a cookie value from a request:
+Update <code>api/v1/auth/auth.py</code> by adding the method <code>def session_cookie(self, request=None):</code> that returns a cookie value from a request:
 
 * Return <code>None</code> if <code>request</code> is <code>None</code>
 * Return the value of the cookie named <code>_my_session_id</code> from <code>request</code> - the name of the cookie must be defined by the environment variable <code>SESSION_NAME</code>
@@ -396,7 +397,7 @@ Update  by adding the method  that returns a cookie value from a request:
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ cat main_3.py
 #!/usr/bin/env python3
 """ Cookie server
@@ -424,7 +425,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000"
 Cookie value: None
 bob@dylan:~$
@@ -443,14 +444,14 @@ bob@dylan:~$
 
 ### 5. Before request <a name='subparagraph5'></a>
 
-Update the  method in :
+Update the <code>@app.before_request</code> method in <code>api/v1/app.py</code>:
 
 * Add the URL path <code>/api/v1/auth_session/login/</code> in the list of excluded paths of the method <code>require_auth</code> - this route doesn’t exist yet but it should be accessible outside authentication
 * If <code>auth.authorization_header(request)</code> and <code>auth.session_cookie(request)</code> return <code>None</code>, <code>abort(401)</code>
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
@@ -458,7 +459,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/status"
 {
   "status": "OK"
@@ -489,9 +490,9 @@ bob@dylan:~$
 
 ### 6. Use Session ID for identifying a User <a name='subparagraph6'></a>
 
-Update  class:
+Update <code>SessionAuth</code> class:
 
-Create an instance method  (overload) that returns a  instance based on a cookie value:
+Create an instance method <code>def current_user(self, request=None):</code> (overload) that returns a <code>User</code> instance based on a cookie value:
 
 * You must use <code>self.session_cookie(...)</code> and <code>self.user_id_for_session_id(...)</code> to return the User ID based on the cookie <code>_my_session_id</code>
 * By using this User ID, you will be able to retrieve a <code>User</code> instance from the database - you can use <code>User.get(...)</code> for retrieving a <code>User</code> from the database.
@@ -500,7 +501,7 @@ Now, you will be able to get a User based on his session ID.
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ cat main_4.py
 #!/usr/bin/env python3
 """ Main 4
@@ -547,7 +548,7 @@ User with ID: cf3ddee1-ff24-49e4-a40b-2540333fe992 has a Session ID: 9d1648aa-da
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/"
 No user found
 bob@dylan:~$
@@ -565,7 +566,7 @@ bob@dylan:~$
 
 Create a new Flask view that handles all routes for the Session authentication.
 
-In the file , create a route  (= ):
+In the file <code>api/v1/views/session_auth.py</code>, create a route <code>POST /auth_session/login</code> (= <code>POST /api/v1/auth_session/login</code>):
 
 * Slash tolerant (<code>/auth_session/login</code> == <code>/auth_session/login/</code>)
 * You must use <code>request.form.get()</code> to retrieve <code>email</code> and <code>password</code> parameters
@@ -584,11 +585,11 @@ In the file , create a route  (= ):
     * Return the dictionary representation of the <code>User</code> - you must use <code>to_json()</code> method from User
     * You must set the cookie to the response - you must use the value of the environment variable <code>SESSION_NAME</code> as cookie name - <a href="/rltoken/FCL4DJLbn05Cd3_G0-8i4g" target="_blank" title="tip">tip</a>
 
-In the file , you must add this new view at the end of the file.
+In the file <code>api/v1/views/__init__.py</code>, you must add this new view at the end of the file.
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
@@ -596,7 +597,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/auth_session/login" -XGET
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <title>405 Method Not Allowed</title>
@@ -683,14 +684,14 @@ Now you have an authentication based on a Session ID stored in cookie, perfect f
 
 ### 8. Logout <a name='subparagraph8'></a>
 
-Update the class  by adding a new method  that deletes the user session / logout:
+Update the class <code>SessionAuth</code> by adding a new method <code>def destroy_session(self, request=None):</code> that deletes the user session / logout:
 
 * If the <code>request</code> is equal to <code>None</code>, return <code>False</code>
 * If the <code>request</code> doesn’t contain the Session ID cookie, return <code>False</code> - you must use <code>self.session_cookie(request)</code>
 * If the Session ID of the request is not linked to any User ID, return <code>False</code> - you must use <code>self.user_id_for_session_id(...)</code>
 * Otherwise, delete in <code>self.user_id_by_session_id</code> the Session ID (as key of this dictionary) and return <code>True</code>
 
-Update the file , by adding a new route :
+Update the file <code>api/v1/views/session_auth.py</code>, by adding a new route <code>DELETE /api/v1/auth_session/logout</code>:
 
 * Slash tolerant
 * You must use <code>from api.v1.app import auth</code>
@@ -702,7 +703,7 @@ Update the file , by adding a new route :
 
 In the first terminal:
 
-`html
+`
 bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=_my_session_id python3 -m api.v1.app
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ....
@@ -710,7 +711,7 @@ bob@dylan:~$ API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=session_auth SESSION_NAME=
 
 In a second terminal:
 
-`html
+`
 bob@dylan:~$ curl "http://0.0.0.0:5000/api/v1/auth_session/login" -XPOST -d "[email protected]" -d "password=fake pwd" -vvv
 Note: Unnecessary use of -X or --request, POST is already inferred.
 *   Trying 0.0.0.0...
@@ -773,7 +774,6 @@ Login, logout… what’s else?
 
 Now, after getting a Session ID, you can request all protected API routes by using this Session ID, no need anymore to send User email and password every time.
 
----
 
 
 ## Authors
