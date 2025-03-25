@@ -28,7 +28,7 @@ class TestGithubOrgClient(unittest.TestCase):
         Method tests that _public_repos_url works
         """
 
-        expected = "www.yes.com"
+        expected = "www.kevin.com"
         payload = {"repos_url": expected}
         to_mock = "client.GithubOrgClient.org"
         with patch(to_mock, PropertyMock(return_value=payload)):
@@ -41,21 +41,21 @@ class TestGithubOrgClient(unittest.TestCase):
         Method tests the public repos
         """
 
-        jeff = {"name": "Jeff", "license": {"key": "a"}}
-        bobb = {"name": "Bobb", "license": {"key": "b"}}
-        suee = {"name": "Suee"}
+        moi = {"name": "moi", "license": {"key": "a"}}
+        toi = {"name": "toi", "license": {"key": "b"}}
+        lui = {"name": "lui"}
 
         to_mock = "client.GithubOrgClient._public_repos_url"
 
-        get_json_mock.return_value = [jeff, bobb, suee]
+        get_json_mock.return_value = [moi, toi, lui]
 
-        with patch(to_mock, PropertyMock(return_value="www.yes.com")) as y:
+        with patch(to_mock, PropertyMock(return_value="www.kevin.com")) as y:
             x = GithubOrgClient("x")
-            self.assertEqual(x.public_repos(), ["Jeff", "Bobb", "Suee"])
-            self.assertEqual(x.public_repos("a"), ["Jeff"])
+            self.assertEqual(x.public_repos(), ["moi", "toi", "lui"])
+            self.assertEqual(x.public_repos("a"), ["moi"])
             self.assertEqual(x.public_repos("c"), [])
-            self.assertEqual(x.public_repos(45), [])
-            get_json_mock.assert_called_once_with("www.yes.com")
+            self.assertEqual(x.public_repos(2), [])
+            get_json_mock.assert_called_once_with("www.kevin.com")
             y.assert_called_once_with()
 
 
