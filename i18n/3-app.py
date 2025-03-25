@@ -4,13 +4,7 @@ from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
-def get_locale():
-    """to determine the best match with our supported languages"""
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 app = Flask(__name__)
-babel = Babel(app, locale_selector=get_locale)
 
 
 class Config:
@@ -21,12 +15,24 @@ class Config:
 
 
 app.config.from_object(Config)
+babel = Babel(app)
+
+
+def get_locale():
+    """to determine the best match with our supported languages"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.context_processor
+def inject_locale():
+    """Injecte la fonction get_locale dans le contexte du template"""
+    return dict(get_locale=get_locale)
 
 
 @app.route('/')
 def renderIndex():
     """This is the function index"""
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
