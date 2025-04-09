@@ -5,7 +5,19 @@ Modul for writing string to Redis
 import redis
 import uuid
 from typing import Union, Callable
+import functools
 
+
+def count_calls(method: Callable) -> Callable:
+    """Decorator that counts the number of times a method is called."""
+    key = method.__qualname__
+
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """Wrapper around the method to increment the counter and call the original method."""
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 class Cache:
     """Storing data in redis"""
@@ -14,6 +26,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         store the input data in Redis using the random key and return the key
@@ -21,7 +34,7 @@ class Cache:
         random_key = str(uuid.uuid4())
         self._redis.set(random_key, data)
         return random_key
-    
+
     def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float, None]:
         """
         take a key string argument and an optional Callable argument 
@@ -32,7 +45,7 @@ class Cache:
         if data is not None and fn is not None:
             return fn(data)
         return data
-    
+
     def get_str(self, key: str) -> Union[str, None]:
         """Get a str by Redis."""
         return self.get(key, fn=lambda d: d.decode("utf-8"))
