@@ -48,7 +48,8 @@ def replay(method: Callable):
     for input_bytes, output_bytes in zip(inputs, outputs):
         input_str = input_bytes.decode('utf-8')
         output_str = output_bytes.decode('utf-8')
-        formatted_input = input_str.replace("('", "(*('").replace("',)", "',))")
+        formatted_input = input_str.replace("('", "(*('").replace("',)",
+                                                                  "',))")
         print(f"{method.__qualname__}{formatted_input} -> {output_str}")
 
 
