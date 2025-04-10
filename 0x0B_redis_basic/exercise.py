@@ -23,7 +23,7 @@ def call_history(method:Callable) -> Callable:
     """decorator to store the history of inputs ans outputs"""
     inputs_key = f"{method.__qualname__}:inputs"
     outputs_key = f"{method.__qualname__}:outputs"
-    
+
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         """ wrapper around the method to store inputs and outputs"""
@@ -32,6 +32,22 @@ def call_history(method:Callable) -> Callable:
         self._redis.rpush(outputs_key, output)
         return output
     return wrapper
+
+def replay(method: Callable):
+    """Displays the history of calls of a particular function."""
+    inputs_key = f"{method.__qualname__}:inputs"
+    outputs_key = f"{method.__qualname__}:outputs"
+    redis_client = redis.Redis()
+
+    inputs = redis_client.lrange(inputs_key, 0, -1)
+    outputs = redis_client.lrange(outputs_key, 0, -1)
+
+    print(f"{method.__qualname__} was called {len(inputs)} times:")
+    for input_bytes, output_bytes in zip(inputs, outputs):
+        input_str = input_bytes.decode('utf-8')
+        output_str = output_bytes.decode('utf-8')
+        print(f"{method.__qualname__}{input_str} -> {output_str}")
+
 
 class Cache:
     """Storing data in redis"""
@@ -68,3 +84,10 @@ class Cache:
     def get_int(self, key: str) -> Union[int, None]:
         """Get an int by Redis."""
         return self.get(key, fn=int)
+
+if __name__ == "__main__":
+    cache = Cache()
+    cache.store("foo")
+    cache.store("bar")
+    cache.store(42)
+    replay(cache.store)
