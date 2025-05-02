@@ -96,87 +96,87 @@ describe('calculateNumber', () => {
   describe('type == SUBSTRACT', () => {
     // Test case 1: Both numbers are integers
     it('should return -2 when inputs are 1 and 3', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1, 3), -2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 3), -2);
     });
 
     // Test case 2: One number is float, rounds up
     it('should return -3 when inputs are 1 and 3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1, 3.7), -3);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 3.7), -3);
     });
 
     // Test case 3: Both numbers are floats, one rounds down, one rounds up
     it('should return -3 when inputs are 1.2 and 3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1.2, 3.7), -3);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.2, 3.7), -3);
     });
 
     // Test case 4: Both numbers are floats, both round up
     it('should return -2 when inputs are 1.5 and 3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1.5, 3.7), -2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 3.7), -2);
     });
 
     // Test case 5: One number is integer, one is float rounding down
     it('should return -2 when inputs are 1 and 3.2', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1, 3.2), -2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 3.2), -2);
     });
 
     // Test case 6: Both numbers are floats, both round down
     it('should return -2 when inputs are 1.2 and 3.2', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1.2, 3.2), -2);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.2, 3.2), -2);
     });
 
     // Test case 7: Edge case with .5 rounding (should round up)
     it('should return -1 when inputs are 1.5 and 3.2', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1.5, 3.2), -1);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 3.2), -1);
     });
 
     // Test case 8: Edge case with negative numbers
     it('should return 2 when inputs are -1 and -3', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', -1, -3), 2);
+      assert.strictEqual(calculateNumber('SUBTRACT', -1, -3), 2);
     });
 
     // Test case 9: Negative floats
     it('should return 3 when inputs are -1.2 and -3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', -1.2, -3.7), 3); 
+      assert.strictEqual(calculateNumber('SUBTRACT', -1.2, -3.7), 3); 
     });
 
     // Test case 10: Negative floats rounding up towards zero
     it('should return 2 when inputs are -1.5 and -3.2', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', -1.5, -3.2), 2); 
+      assert.strictEqual(calculateNumber('SUBTRACT', -1.5, -3.2), 2); 
     });
 
     // Test case 11: Mixed positive and negative
     it('should return -5 when inputs are -1.5 and 3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', -1.5, 3.7), -5);
+      assert.strictEqual(calculateNumber('SUBTRACT', -1.5, 3.7), -5);
     });
 
     // Test case 12: Zero inputs
     it('should return 0 when inputs are 0 and 0', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 0, 0), 0);
+      assert.strictEqual(calculateNumber('SUBTRACT', 0, 0), 0);
     });
 
     // Test case 13: Zero and positive float
     it('should return -4 when inputs are 0 and 3.7', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 0, 3.7), -4);
+      assert.strictEqual(calculateNumber('SUBTRACT', 0, 3.7), -4);
     });
 
     // Test case 14: Zero and negative float
     it('should return 3 when inputs are 0 and -3.2', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 0, -3.2), 3);
+      assert.strictEqual(calculateNumber('SUBTRACT', 0, -3.2), 3);
     });
 
     // Test case 15: Large numbers
     it('should handle large numbers correctly', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1000000.4, 2000000.6), -1000001);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1000000.4, 2000000.6), -1000001);
     });
 
     // Test case 16: Numbers very close to .5 boundary (below)
     it('should round down correctly for numbers just below .5', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 2.4999999, 3.4999999), -1);
+      assert.strictEqual(calculateNumber('SUBTRACT', 2.4999999, 3.4999999), -1);
     });
 
     // Test case 17: One number exactly .5
     it('should handle one number exactly at .5 correctly', () => {
-      assert.strictEqual(calculateNumber('SUBSTRACT', 1, 3.5), -3);
+      assert.strictEqual(calculateNumber('SUBTRACT', 1, 3.5), -3);
     });
   });
     // Describe the test suite for the calculateNumber function when type is DIVIDE
