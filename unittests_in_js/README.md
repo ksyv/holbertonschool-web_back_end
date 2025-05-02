@@ -18,12 +18,12 @@
 
 ## Resources
 ### Read or watch:
-* [Mocha documentation](/rltoken/Ef-YqJk78G4D1zSJgCOKWw)
-* [Chai](/rltoken/1wz8FKPDf1mU9MFTBudqHA)
-* [Sinon](/rltoken/3wLyO0jXteoFaJAL3dQNNQ)
-* [Express](/rltoken/aVaeRQTkFcrLDTedHwJikw)
-* [Request](/rltoken/iDq7WAYaPp-sTdlSgPev3Q)
-* [How to Test NodeJS Apps using Mocha, Chai and SinonJS](/rltoken/Jm7l_3AbzCzDQqSAwuC8HA)
+* [Mocha documentation](https://mochajs.org/)
+* [Chai](https://www.chaijs.com/api/)
+* [Sinon](https://sinonjs.org/#get-started)
+* [Express](https://expressjs.com/en/guide/routing.html)
+* [Request](https://www.npmjs.com/package/request)
+* [How to Test NodeJS Apps using Mocha, Chai and SinonJS](https://www.digitalocean.com/community)
 
 ## Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
