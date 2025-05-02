@@ -2,6 +2,9 @@
 // Rounds two numbers and returns their type operation.
 
 function calculateNumber(type, a, b) {
+  if (isNaN(a) || isNaN(b)) {
+    throw new TypeError()
+  }
     // Round both numbers to the nearest integer
     const roundedA = Math.round(a);
     const roundedB = Math.round(b);
