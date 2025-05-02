@@ -1,0 +1,14 @@
+{
+  "name": "unittests_in_js",
+  "version": "1.0.0",
+  "description": "Project for learning unit tests in JavaScript",
+  "main": "",
+  "scripts": {
+    "test": "npx mocha --file"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^11.2.2"
+  }
+}
