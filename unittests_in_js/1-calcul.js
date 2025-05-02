@@ -11,7 +11,7 @@ function calculateNumber(type, a, b) {
       case 'SUM':
         return roundedA + roundedB;
       case 'SUBSTRACT':
-        return Math.round(a) - Math.round(b);
+        return roundedA - roundedB;
       case 'DIVIDE':
         if (roundedB == 0) {
           return 'Error'
