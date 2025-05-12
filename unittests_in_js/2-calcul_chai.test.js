@@ -1,4 +1,8 @@
 // Import the expect module for assertions
+/**let expect;
+before(async () => {
+  const chai = await import()
+})*/
 const {expect} = require('chai');
 // Import the function to be tested
 const calculateNumber = require('./2-calcul_chai.js');
