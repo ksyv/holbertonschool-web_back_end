@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "sinon": "^20.0.0"
+  },
+  "dependencies": {
+    "redis": "^5.0.1"
   }
 }
