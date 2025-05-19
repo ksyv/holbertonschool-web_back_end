@@ -20,10 +20,10 @@
 
 ## Resources
 ### Read or watch:
-* [Redis quick start](/rltoken/7eegJpVLrLqzvxgOC9cfng)
-* [Redis client interface](/rltoken/qTNQbh4fk23sAJdjtgJY4Q)
-* [Redis client for Node JS](/rltoken/y1WPXQxH-S7Op_P2bh7dPg)
-* [Kue](/rltoken/tj3H4qD7u8yg-IhtbSyG7A)
+* [Redis quick start](https://redis.io/docs/latest/integrate/)
+* [Redis client interface](https://redis.io/docs/latest/)
+* [Redis client for Node JS](https://github.com/redis/node-redis)
+* [Kue(deprecated but still use in the industry)](https://github.com/Automattic/kue)
 
 ## Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
